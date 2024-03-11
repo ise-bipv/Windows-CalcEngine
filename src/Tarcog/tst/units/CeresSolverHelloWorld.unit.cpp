@@ -5,27 +5,27 @@
 
 // Inspired by http://ceres-solver.org/nnls_tutorial.html#hello-world
 
-struct CostFunctor {
-   template <typename T>
-   bool operator()(const T* const x, T* residual) const {
-     residual[0] = 10.0 - x[0];
-     return true;
-   }
+struct CostFunctor
+{
+    template<typename T>
+    bool operator()(const T * const x, T * residual) const
+    {
+        residual[0] = 10.0 - x[0];
+        return true;
+    }
 };
 
-class CeresSolver : public testing::Test
+class CeresSolverHelloWorld : public testing::Test
 {
 private:
-
 protected:
     void SetUp() override
-    {
-    }
+    {}
 
 public:
 };
 
-TEST_F(CeresSolver, ProofOfConcept)
+TEST_F(CeresSolverHelloWorld, ProofOfConcept)
 {
     SCOPED_TRACE("Begin Test: Hello World");
 
@@ -38,8 +38,8 @@ TEST_F(CeresSolver, ProofOfConcept)
 
     // Set up the only cost function (also known as residual). This uses
     // auto-differentiation to obtain the derivative (jacobian).
-    ceres::CostFunction* cost_function =
-        new ceres::AutoDiffCostFunction<CostFunctor, 1, 1>(new CostFunctor);
+    ceres::CostFunction * cost_function =
+      new ceres::AutoDiffCostFunction<CostFunctor, 1, 1>(new CostFunctor);
     problem.AddResidualBlock(cost_function, nullptr, &x);
 
     // Run the solver!
